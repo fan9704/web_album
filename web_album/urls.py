@@ -15,7 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from albumapp import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index),
+    path('index/', views.index),
+    path('albumshow/<int:albumid>/', views.albumshow),
+    # path('albumphoto/<int:photoid>/<int:albumid>/', views.albumphoto),
+    # path('login/', views.login),
+    # path('logout/', views.logout),
+    # path('adminmain/', views.adminmain),
+    # path('adminmain/<int:albumid>/', views.adminmain),
+    # path('adminadd/', views.adminadd),
+    # path('adminfix/<int:albumid>/', views.adminfix),
+    # path('adminfix/<int:albumid>/<int:photoid>/', views.adminfix),
+    # path('adminfix/<int:albumid>/<int:photoid>/<str:deletetype>/', views.adminfix),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
