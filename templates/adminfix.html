@@ -55,9 +55,11 @@
 {{message}}
 <hr />
 <div class="normalDiv">
-    <p class="heading">管理照片</p>
+    <h2>
+        <p class="heading">管理照片</p>
+    </h2>
     {% for photo in photos %}
-    <div class="albumDiv">
+    <div class="albumDiv" style="display: inline-block;">
         <div class="picDiv"><img src="/media/{{photo.purl}}/" width="120" height="120" border="0" /></div>
         <div class="albuminfo">
             <form action="/adminfix/{{photo.palbum.id}}/{{photo.id}}/update/" method="POST" name="form3" id="form3">
@@ -65,7 +67,7 @@
                 <input name="ap_subject" type="text" id="ap_subject" value="{{photo.psubject}}" size="10" />
                 <input type="submit" name="button3" id="button3" value="更新">
                 <br>
-                <a href="/adminfix/{{photo.palbum.id}}/{{photo.id}}/delete/" onClick="confirmLink('確定要刪除這張圖片嗎？'); return document.returnValue">刪除圖片</a>
+                <a class="btn btn-outline-danger " href="/adminfix/{{photo.palbum.id}}/{{photo.id}}/delete/ " onClick="confirmLink( '確定要刪除這張圖片嗎？'); return document.returnValue ">刪除圖片</a>
             </form>
             <p><br />
             </p>
