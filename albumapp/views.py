@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 import os
 
 import albumapp
@@ -39,6 +40,8 @@ def albumphoto(request,photoid=None,albumid=None):
     return render(request,'albumphoto.html',locals())
 
 def login(request):
+    if 'username' in request.session:
+        redirect('/adminmain/')
     messages=''
     if request.method=='POST':
         name=request.POST['username']
@@ -60,6 +63,7 @@ def logout(request):
     del request.session['username']
     return redirect('/index/')
 
+@login_required
 def adminmain(request, albumid=None):  #管理頁面
 	if albumid == None:  #按相簿管理鈕進管理頁面
 		albums = models.AlbumModel.objects.all().order_by('-id')
@@ -82,6 +86,7 @@ def adminmain(request, albumid=None):  #管理頁面
 		return redirect('/adminmain/')
 	return render(request, "adminmain.html", locals())
 
+@login_required
 def adminadd(request):
     message=''
     title=request.POST.get('album_title','')
@@ -95,7 +100,7 @@ def adminadd(request):
         return redirect('/adminmain/')
     return render(request,'adminadd.html',locals())
 
-
+@login_required
 def adminfix(request, albumid=None, photoid=None, deletetype=None):  #相簿維護
     album = models.AlbumModel.objects.get(id=albumid)  #取得指定相簿
     photos = models.PhotoModel.objects.filter(palbum__id=albumid).order_by('-id')

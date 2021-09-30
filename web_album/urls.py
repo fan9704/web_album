@@ -18,6 +18,7 @@ from django.urls import path
 from albumapp import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +28,7 @@ urlpatterns = [
     path('albumphoto/<int:photoid>/<int:albumid>/', views.albumphoto),
     path('login/', views.login),
     path('logout/', views.logout),
-    path('adminmain/', views.adminmain),
+    path('adminmain/', login_required(views.adminmain)),
     path('adminmain/<int:albumid>/', views.adminmain),
     path('adminadd/', views.adminadd),
     path('adminfix/<int:albumid>/', views.adminfix),
