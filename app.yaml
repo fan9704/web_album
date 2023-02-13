@@ -1,0 +1,15 @@
+runtime: python39
+
+env_variables:
+  POSTGRES_DB : webalbum
+  POSTGRES_USER : test
+  POSTGRES_PASSWORD : 123456
+  POSTGRES_DB_URL : 127.0.0.1
+  GAE_APPLICATION : True
+
+handlers:
+- url: /static
+  static_dir: static/
+
+- url: /.*
+  script: auto
